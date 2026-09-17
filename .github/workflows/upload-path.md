@@ -7,7 +7,7 @@
 permissions:
   contents: read
   issues: read
-  copilot-requests: none
+  copilot-requests: write
 
 engine:
   id: copilot
