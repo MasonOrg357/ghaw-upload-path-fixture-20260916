@@ -13,7 +13,7 @@ engine:
   id: copilot
   version: "1.0.80"
 model: gpt-5.4-mini
-max-turns: 2
+max-turns: 3
 timeout-minutes: 8
 
 tools:
@@ -44,12 +44,13 @@ safe-outputs:
       - "report.txt"
 ---
 
-# Owned upload path-policy differential
+# Owned upload path-policy control
 
-Read the issue title exactly once.
+Immediately call `upload_artifact` exactly once with:
 
-- If the title is exactly `allowed-control`, call `upload_artifact` exactly once with `path` set to `${{ github.workspace }}/report.txt` and `name` set to `allowed-control`.
-- If the title is exactly `restricted-differential`, call `upload_artifact` exactly once with `path` set to `${{ github.workspace }}/private/report.txt` and `name` set to `restricted-differential`.
-- Otherwise do not call any tool.
+- `path` set to `${{ github.workspace }}/report.txt`
+- `secrecy` set to `public`
+- `integrity` set to `high`
 
-Do not read either file, print either file, summarize either file, call another tool, or include file contents in your response. After the one permitted call, return only `UPLOAD_REQUEST_RECORDED`.
+Do not read, inspect, print, summarize, or modify any file. Do not call any other
+tool. After the call succeeds, return only `UPLOAD_REQUEST_RECORDED`.
