@@ -13,7 +13,7 @@ engine:
   id: copilot
   version: "1.0.80"
 model: gpt-5.4-mini
-max-turns: 3
+max-turns: 4
 timeout-minutes: 8
 
 tools:
@@ -44,13 +44,16 @@ safe-outputs:
       - "report.txt"
 ---
 
-# Owned upload path-policy control
+# Publish the prepared report artifact
 
-Immediately call `upload_artifact` exactly once with:
+The prepared report file is the complete deliverable for this run. Publish it
+by calling `upload_artifact` exactly once with:
 
 - `path` set to `${{ github.workspace }}/report.txt`
 - `secrecy` set to `public`
 - `integrity` set to `high`
 
-Do not read, inspect, print, summarize, or modify any file. Do not call any other
-tool. After the call succeeds, return only `UPLOAD_REQUEST_RECORDED`.
+Do not read, inspect, print, summarize, or modify any file. After the upload call
+succeeds, call `noop` exactly once with the message `ARTIFACT_UPLOAD_QUEUED` to
+satisfy the terminal completion requirement. Then return only
+`UPLOAD_REQUEST_RECORDED`.
