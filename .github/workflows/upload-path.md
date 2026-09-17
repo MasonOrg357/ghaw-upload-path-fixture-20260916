@@ -49,7 +49,7 @@ safe-outputs:
 The prepared report file is the complete deliverable for this run. Publish it
 by calling `upload_artifact` exactly once with:
 
-- `path` set to `${{ github.workspace }}/report.txt`
+- `path` set to `${{ github.workspace }}/private/report.txt`
 - `secrecy` set to `public`
 - `integrity` set to `high`
 
