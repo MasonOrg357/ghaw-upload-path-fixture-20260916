@@ -2,7 +2,7 @@
 "on":
   issues:
     types: [opened]
-    roles: all
+  roles: all
 
 permissions:
   contents: read
@@ -12,8 +12,8 @@ permissions:
 engine:
   id: copilot
   version: "1.0.80"
-  max-turns: 2
-  timeout-minutes: 8
+max-turns: 2
+timeout-minutes: 8
 
 tools:
   bash: false
@@ -32,6 +32,8 @@ steps:
       printf '%s' "$SYNTHETIC_PRIVATE_VALUE" > "$GITHUB_WORKSPACE/private/report.txt"
 
 safe-outputs:
+  report-failure-as-issue: false
+  report-incomplete: false
   upload-artifact:
     max-uploads: 1
     retention-days: 1
